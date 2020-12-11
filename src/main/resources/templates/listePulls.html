@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="template">
+
+<link rel="stylesheet" type="text/css"
+href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Liste des pulls</title>
+</head>
+<body>
+<div layout:fragment="Mycontent">
+<div class="container mt-5">
+<div class="card">
+ <div class="card-header">
+ Liste des pulls
+ </div>
+ <div class="card-body">
+ <table class="table table-striped">
+ <tr>
+ <th>ID</th><th>Nom pull</th><th>Prix</th><th>Matiere</th>
+ </tr>
+ <tr th:each="p:${pulls.content}">
+ <td th:text="${p.idpull}"></td>
+ <td th:text="${p.marquePull}"></td>
+ <td th:text="${p.prixPull}"></td>
+ <td th:text="${p.matierePull}"></td>
+ <td><a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')"
+ th:href="@{supprimerPull(id=${p.idpull},
+page=${currentPage},size=${size})}">Supprimer</a></td>
+<td><a class="btn btn-success"
+th:href="@{modifierPull(id=${p.idPull})}">Editer</a></td>
+ </tr>
+ </table>
+ <ul class="nav nav-pills">
+ <li th:each="page,status:${pages}">
+ <a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+ th:href="@{ Listepulls(page=${status.index}, size=${size} ) }"
+ th:text="${status.index }"></a>
+ </li>
+ </ul>
+
+ </div>
+</div>
+</div>
+</div>
+</body>
+</html>
